@@ -49,3 +49,7 @@ button:hover {
 .signupcontainer form p {
     text-align: center;
 }
+
+.signupcontainer form p a {
+    color: white;
+}
