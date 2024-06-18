@@ -6,6 +6,8 @@ import cors from "cors";
 const app = express();
 const port = 4000;
 
+app.use(express.static("public"));
+
 let tasks = [
 {
     id: 1,
