@@ -7,13 +7,21 @@ body {
     height:100vh;
     margin: 0;
 }
-.signupcontainer {
-    text-align: center;
 
+.container {
+    text-align: center;
+}
+
+.holder {
+    text-align: left;
 }
 
 h1 {
     text-align: center;
+    color: purple;
+}
+
+a {
     color: purple;
 }
 
@@ -34,6 +42,14 @@ input {
     border-radius: 10px;
 }
 
+textarea {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
 button {
     width: 50%;
     padding: 10px;
@@ -46,9 +62,4 @@ button {
 
 button:hover {
     background-color: plum ;
-}
-
-.error {
-    color: red;
-    margin-bottom: 20px;
 }
