@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TASKMASTER</title>
-    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/main.css">
 </head>
 
 <body>
@@ -12,7 +12,7 @@
         <h1>My Tasks</h1>
         <a id="newTask" href="/new">Create New Task</a>
         <ul id="tasksList">
-            <% tasks.forEach(task=> { %>
+            <% tasks.forEach(task => { %>
                 <li>
                     <h2><%=task.title%></h2>
                     <small> Category: <%=task.category%></small>
