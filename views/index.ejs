@@ -14,15 +14,10 @@
         <ul id="tasksList">
             <% tasks.forEach(task=> { %>
                 <li>
-                    <h2>
-                        <%=task.title%>
-                    </h2>
-                    <small> Category: <%=task.category%>
-                    </small>
+                    <h2><%=task.title%></h2>
+                    <small> Category: <%=task.category%></small>
                     <small> Duedate: <%= task.duedate%> </small>
-                    <p>
-                        <%=task.description%>
-                    </p>
+                    <p><%=task.description%></p>
                     <a class="edit" href="/edit/<%= task.id %>">Edit</a>
                     <a class="delete" href="/api/tasks/delete/<%= task.id%>">Delete</a>
                 </li>
