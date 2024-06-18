@@ -15,13 +15,13 @@ app.use(bodyParser.json());
 
 //main page
 app.get("/", async (req, res) => {
-    try {
-        const result = await axios.get(`${API_URL}/tasks`);
-        console.log(result.data);
-        res.render("index.ejs", { tasks: result.data });
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching tasks"});
-    }
+  try {
+    const result = await axios.get(`${API_URL}/tasks`);
+    console.log(result.data);
+    res.render("index.ejs", { tasks: result.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching tasks"});
+  }
 });
 
 //new task page and edit task page
