@@ -7,6 +7,7 @@ const port = 4000;
 
 let tasks = [];
 
+let lastId = 0;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

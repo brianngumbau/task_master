@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", async (req, res) => {
     try {
         const result = await axios.get(`${API_URL}/tasks`);
-        console.log(response);
+        console.log(result);
         res.render("index.ejs", { tasks: result.data });
     } catch (error) {
         res.status(500).json({ message: "Error fetching tasks"});
