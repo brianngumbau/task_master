@@ -12,7 +12,7 @@
         <h1>My Tasks</h1>
         <a id="newTask" href="/new">Create New Task</a>
         <ul id="tasksList">
-            <% tasks.forEach(task=> {
+            <% tasks.forEach(task=> { %>
                 <li>
                     <h2>
                         <%=task.title%>
@@ -24,7 +24,7 @@
                         <%=task.description%>
                     </p>
                     <a class="edit" href="/edit/<%= task.id %>">Edit</a>
-                    <a class="delete" href="/api/posts/delete/<%= task.id%>">Delete</a>
+                    <a class="delete" href="/api/tasks/delete/<%= task.id%>">Delete</a>
                 </li>
            <% }); %>
         </ul>

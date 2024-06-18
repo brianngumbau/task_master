@@ -5,9 +5,24 @@ import bodyParser from "body-parser";
 const app = express();
 const port = 4000;
 
-let tasks = [];
+let tasks = [
+{
+    id: 1,
+    title: "Code reviews",
+    category: "Work",
+    description: "Review the latest code submissions from the development team. Ensure that the code adheres to our coding standards, is well-documented, and performs as expected.",
+    duedate: "19/6/2024",
+},
+{
+    id: 2,
+    title: "Online course progress",
+    category: "Educational",
+    description: "Track and complete the next set of modules in the 'JavaScript Algorithms and Data Structures'",
+    duedate: "21/6/2024",
+},
+];
 
-let lastId = 0;
+let lastId = 2;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

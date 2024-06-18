@@ -8,6 +8,7 @@ const API_URL = "http://localhost:4000";
 
 
 app.use(express.static("public"));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -15,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", async (req, res) => {
     try {
         const result = await axios.get(`${API_URL}/tasks`);
-        console.log(result);
+        console.log(result.data);
         res.render("index.ejs", { tasks: result.data });
     } catch (error) {
         res.status(500).json({ message: "Error fetching tasks"});
