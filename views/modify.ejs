@@ -14,9 +14,9 @@
 
         <% if (locals.task) { %>
             <form id="editTaskForm" method="post" action="/api/tasks/<%=task.id%>">
-                <input type="text" name="title" value="<%=task.title %>">
+                <input type="text" name="title" value="<%= task.title %>">
                 <input type="text" name="category" value="<%= task.category %>">
-                <textarea id="content" rows="5"><%= task.description %></textarea>
+                <textarea name="description" id="content" rows="5"><%= task.description %></textarea>
                 <input type="text" name="duedate" value="<%= task.duedate%>">
                 <button class="full" type="submit">
                     <%= submit %>
