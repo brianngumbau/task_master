@@ -43,6 +43,7 @@ app.get("/edit/:id", async (req, res) => {
     }
 });
 
+
 // creating new task
 app.post("/api/tasks", async (req, res) => {
     try {
