@@ -36,7 +36,7 @@ app.get("/edit/:id", async (req, res) => {
         res.render("modify.ejs", {
             heading: "Edit Task",
             submit: "Update Task",
-            task: result.data,
+            task: result.data[0],
         });
     } catch (error) {
         res.status(500).json({ message: "Error fetching task"});

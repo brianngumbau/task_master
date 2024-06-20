@@ -13,10 +13,10 @@
         </h1>
         <% if (locals.task) { %>
             <form id="editTaskForm" method="post" action="/api/tasks/<%=task.id%>">
-                <input type="text" name="title" value="<%= task.title %>">
-                <input type="text" name="category" value="<%= task.category %>">
-                <textarea id="description" rows="5"><%=task.description %></textarea>
-                <input type="date" name="duedate" value="<%= task.duedate%>">
+                <input type="text" name="title" value="<%=task.title %>">
+                <input type="text" name="category" value="<%=task.category %>">
+                <textarea id="description" rows="5" name="description"><%=task.description %></textarea>
+                <input type="date" name="duedate" value="<%=task.duedate %>">
                 <button class="full" type="submit">
                     <%= submit %>
                 </button>
@@ -27,7 +27,7 @@
                 <input type="text" name="category" placeholder="Category">
                 <textarea name="description" placeholder="Description" required rows="5"></textarea>
                 <label for="duedate">Due Date:</label>
-                <input type="date" name="duedate" placeholder="Duedate" required>
+                <input type="date" name="duedate" placeholder="MM/DD/YYYY" required>
                 <button class="full" type="submit">
                     <%= submit %>
                 </button>
