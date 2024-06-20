@@ -90,7 +90,7 @@ app.post("/tasks", async (req, res) => {
 
 //patching a task
 
-app.patch("/tasks/:id", (req, res) => {
+app.patch("/tasks/:id", async (req, res) => {
     const id = parseInt(req.params.id);
     const existingTask = tasks.find((task) => task.id === id);
     const updatedTask = {
@@ -100,9 +100,16 @@ app.patch("/tasks/:id", (req, res) => {
         description: req.body.description || existingTask.description,
         category: req.body.category || existingTask.category,
     };
-    const searchId = tasks.findIndex((task) => task.id === id);
-    tasks[searchId] = updatedTask;
-    res.json(updatedTask);
+    //const searchId = tasks.findIndex((task) => task.id === id);
+    //tasks[searchId] = updatedTask;
+    try {
+        await db.query(
+            "UPDATE tasks SET title = ($1), duedate = ($2), description = ($3), category = ($4)", 
+        [updatedTask.title, updatedTask.duedate, updatedTask.description, updatedTask.category]);
+        res.json(updatedTask);
+    } catch (error) {
+        console.log(error);
+    } 
 });
 
 //deleting specific task using task id
