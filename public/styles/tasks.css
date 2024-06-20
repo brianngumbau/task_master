@@ -1,143 +1,142 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f8f8f8;
     color: #333;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    padding: 20px;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1500px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
-/* Header */
+.holder {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
 h1 {
-    text-align: center;
-    color: #333;
-    margin-top: 20px;
-}
-
-/* Links */
-a {
-    text-decoration: none;
-    color: #333;
-}
-
-a:hover {
-    color: #007BFF;
-}
-
-/* Create New Task Button */
-#newTask {
-    display: inline-block;
-    background-color: purple;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 16px;
+    color: #4b0082;
     margin-bottom: 20px;
-    text-align: center;
+}
+
+#newTask {
+    background-color: #4b0082;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
 #newTask:hover {
-    background-color:rebeccapurple;
+    background-color: #370061;
 }
 
-/* Buttons */
-button.full {
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
+#tasksList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#tasksList li {
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#tasksList li h2 {
+    color: black;
+    margin-top: 0;
+}
+
+#tasksList li small {
+    display: block;
+    color: #555;
+}
+
+#tasksList li p {
+    margin: 5px 0;
+}
+
+#tasksList li .edit,
+#tasksList li .delete {
     color: #fff;
     border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-}
-
-button.full:hover {
-    background-color: #0056b3;
-}
-
-/* Task List */
-ul#tasksList {
-    list-style: none;
-    padding: 0;
-}
-
-ul#tasksList li {
-    background: #fff;
-    padding: 20px;
-    margin-bottom: 10px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-ul#tasksList li h2 {
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
-ul#tasksList li small {
-    display: block;
-    color: #999;
-    margin-top: 5px;
-}
-
-ul#tasksList li p {
-    margin: 10px 0;
-}
-
-/* Edit and Delete Links */
-a.edit, a.delete {
-    display: inline-block;
     padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
     margin-top: 10px;
-    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
 }
 
-a.edit {
-    background-color: #6f42c1;
-    color: #fff;
+#tasksList li .edit {
+    background-color: #4b0082; /* Purple background for Edit */
 }
 
-a.edit:hover {
-    background-color: #5a32a3;
+#tasksList li .edit:hover {
+    background-color: #370061;
 }
 
-a.delete {
-    background-color: #dc3545;
-    color: #fff;
+#tasksList li .delete {
+    background-color: #ff0000; /* Red background for Delete */
+    margin-left: 10px;
 }
 
-a.delete:hover {
-    background-color: #c82333;
+#tasksList li .delete:hover {
+    background-color: #cc0000;
 }
 
-/* Forms */
 form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
 form input[type="text"],
 form textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ddd;
-    border-radius: 3px;
-    font-size: 16px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+form input[type="date"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 form textarea {
@@ -145,9 +144,18 @@ form textarea {
 }
 
 form button.full {
-    background-color: purple;
+    background-color: #4b0082;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto 0;
 }
 
 form button.full:hover {
-    background-color: rebeccapurple;
+    background-color: #370061;
 }
