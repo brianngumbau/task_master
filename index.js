@@ -132,8 +132,6 @@ app.delete("/tasks/:id", async (req, res) => {
         .json({ error: "task not found"});
     }*/
 });
-
-
 app.listen(port, () => {
     console.log(`API is running at http://localhost:${port}`);
   });

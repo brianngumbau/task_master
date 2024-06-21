@@ -52,3 +52,14 @@ button:hover {
     color: red;
     margin-bottom: 20px;
 }
+
+/* Footer Styling */
+.footer-bottom {
+    background-color: #abcdab;
+    color:white;
+    text-align: center;
+    padding: 10px 0;
+    position:fixed;
+    border-top: 1px solid #444;
+    bottom:0;
+}
