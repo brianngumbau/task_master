@@ -160,10 +160,3 @@ form button.full {
 form button.full:hover {
     background-color: #370061;
 }
-
-footer {
-    margin-bottom: auto;
-    text-align: left;
-    bottom: 0;
-    position: fixed;
-}
