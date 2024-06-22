@@ -19,6 +19,7 @@ body {
     max-width: 1500px;
     box-sizing: border-box;
     text-align: center;
+    margin: auto;
 }
 
 .holder {
@@ -158,4 +159,11 @@ form button.full {
 
 form button.full:hover {
     background-color: #370061;
+}
+
+footer {
+    margin-bottom: auto;
+    text-align: left;
+    bottom: 0;
+    position: fixed;
 }
