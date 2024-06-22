@@ -40,9 +40,16 @@ nav ul li a:hover {
 
 
 footer {
-    background-color: #4b0082;
+    position: relative;
+    width: 100%;
+    background: #4b0082;
     color: white;
-    padding: 10px 20px;
+    padding: 5px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
+    margin-top: auto;
+    margin-bottom: 0;
 }
 
