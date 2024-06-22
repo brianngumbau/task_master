@@ -92,24 +92,31 @@ app.post("/tasks", async (req, res) => {
 
 app.patch("/tasks/:id", async (req, res) => {
     const id = parseInt(req.params.id);
-    const existingTask = tasks.find((task) => task.id === id);
-    const updatedTask = {
-        id: id,
-        title: req.body.title || existingTask.title,
-        duedate: req.body.duedate || existingTask.duedate,
-        description: req.body.description || existingTask.description,
-        category: req.body.category || existingTask.category,
-    };
-    //const searchId = tasks.findIndex((task) => task.id === id);
-    //tasks[searchId] = updatedTask;
     try {
+        const result = await db.query("SELECT * FROM tasks WHERE id = ($1)", [id]);
+        const existingTask = result.rows[0];
+        console.log(result.rows);
+
+        if (!existingTask) {
+            return res.status(404).json({ error: "Task not found" });
+        }
+        const updatedTask = {
+            id: id,
+            title: req.body.title || existingTask.title,
+            duedate: req.body.duedate || existingTask.duedate,
+            description: req.body.description || existingTask.description,
+            category: req.body.category || existingTask.category,
+        };
+        //const searchId = tasks.findIndex((task) => task.id === id);
+        //tasks[searchId] = updatedTask;
         await db.query(
-            "UPDATE tasks SET title = ($1), duedate = ($2), description = ($3), category = ($4)", 
-        [updatedTask.title, updatedTask.duedate, updatedTask.description, updatedTask.category]);
-        res.json(updatedTask);
+            "UPDATE tasks SET title = ($1), duedate = ($2), description = ($3), category = ($4) WHERE id = ($5)", 
+            [updatedTask.title, updatedTask.duedate, updatedTask.description, updatedTask.category, id]);
+            res.json(updatedTask);
+
     } catch (error) {
         console.log(error);
-    } 
+    }   
 });
 
 //deleting specific task using task id
