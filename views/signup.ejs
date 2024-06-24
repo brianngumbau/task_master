@@ -3,22 +3,21 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/public/styles/main.css">
+        <link rel="stylesheet" href="/styles/main.css">
         <title>Sign Up</title>
     </head>
 
     <body>
         <div class="signupcontainer">
             <h1>Create Account</h1>
-            <form id="signupform" action="/api/users/register" method="POST">
+            <form id="signupform" action="/register" method="POST">
                 <div class="error" id="login-error"></div>
                 <input type="email" id="email" name="email" placeholder="Email" required>
                 <input type="password" id="password" name="password" placeholder="Password" required>
                 <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" required>
                 <button type="submit">Sign Up</button>
-                <p>Already have an account?<a href="./login.html">Log in</a></p>
+                <p>Already have an account?<a href="/login">Log in</a></p>
             </form>
         </div>
-        <script src="js/register.js"></script>
     </body>
 </html>

@@ -7,6 +7,7 @@ const port = 3000;
 const API_URL = "http://localhost:4000";
 
 
+
 app.use(express.static("public"));
 
 
@@ -42,6 +43,18 @@ app.get("/edit/:id", async (req, res) => {
         res.status(500).json({ message: "Error fetching task"});
     }
 });
+
+
+app.get("/login", (req, res) => {
+    res.render("login.ejs");
+});
+
+
+app.get("/register", (req, res) => {
+    res.render("signup.ejs");
+});
+
+
 
 
 // creating new task
