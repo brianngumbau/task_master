@@ -4,12 +4,26 @@ import axios from "axios";
 import env from "dotenv";
 import pg from "pg";
 import bcrypt from "bcrypt";
+import passport from "passport";
+import session from "express-session";
+import { Strategy } from "passport-local";
 
 const app = express();
 const port = 3000;
 const API_URL = "http://localhost:4000";
 const saltRounds = 10;
 env.config();
+
+app.use(
+    session({
+        secret: "TOPSECRET",
+        resave: false,
+        saveUninitialized: true,
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 
@@ -28,13 +42,20 @@ db.connect();
 
 //main page
 app.get("/", async (req, res) => {
-  try {
-    const result = await axios.get(`${API_URL}/tasks`);
-    console.log(result.data);
-    res.render("index.ejs", { tasks: result.data });
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching tasks"});
-  }
+    if (req.isAuthenticated()) {
+        try {
+            const userId = req.user.id;
+            const result = await axios.get(`${API_URL}/tasks/user/${userId}`);
+            console.log("Tasks from API:", result.data);
+            res.render("index.ejs", { tasks: result.data });
+          } catch (error) {
+            console.error("Error fetching tasks:", error.response ? error.response.data : error.message);
+            res.status(500).json({ message: "Error fetching tasks"});
+            console.log(error)
+          }
+    } else {
+        res.redirect("/login");
+    } 
 });
 
 //new task page and edit task page
@@ -62,7 +83,12 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-
+    req.logout(function (error) {
+        if (error) {
+            return next(error);
+        }
+        res.redirect("/register");
+    });
 })
 
 app.get("/register", (req, res) => {
@@ -78,19 +104,22 @@ app.post("/register", async (req, res) => {
         const checkResult = await db.query("SELECT * FROM users WHERE email = $1", [email]);
 
         if (checkResult.rows.length > 0) {
-            res.send("Email already exists!Try logging in");
-
+            res.redirect("/login");
         } else {
             if (confirmpassword === password) {
                 bcrypt.hash(password, saltRounds, async (error, hash) => {
                     if (error) {
                         console.error("Error hashing password:", error);
                     } else {
-                        console.log("Hashed Password:", hash);
-                        await db.query("INSERT INTO users (email, password) VALUES ($1, $2)", 
+                        const result = await db.query(
+                            "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *", 
                             [email, hash]
                         );
-                        res.redirect("/");
+                        const user = result.rows[0];
+                        req.login(user, (error) => {
+                            console.log("success");
+                            res.redirect("/");
+                        });
                     }
                 })
             } else {
@@ -98,43 +127,49 @@ app.post("/register", async (req, res) => {
             }
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(500).send("Error registering user");
     }
 
 });
 
-app.post("/login", async (req, res) => {
-    const email = req.body.username;
-    const loginPassword = req.body.password;
+app.post("/login",
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/login",
+    })
+);
 
-    try {
-        const result = await db.query("SELECT * FROM users WHERE email = ($1)", [email]);
-
-        if (result.rows.length > 0) {
-            console.log(result.rows);
-            const user = result.rows[0];
-            const savedHashedPassword = user.password;
-
-            bcrypt.compare(loginPassword, savedHashedPassword, (error, result) => {
-                if (error) {
-                    console.error("Error comparing passwords:", error);
-                } else {
-                    if (result) {
-                        res.redirect("/");
+passport.use(
+    new Strategy(async function verify(username, password, cb) {
+        try {
+            const result = await db.query("SELECT * FROM users WHERE email = ($1)", [username]);
+    
+            if (result.rows.length > 0) {
+                console.log(result.rows);
+                const user = result.rows[0];
+                const savedHashedPassword = user.password;
+    
+                bcrypt.compare(password, savedHashedPassword, (error, valid) => {
+                    if (error) {
+                        console.error("Error comparing passwords:", error);
+                        return cb(error);
                     } else {
-                        res.send("Incorrect Password");
+                        if (valid) {
+                            return cb(null, user);
+                        } else {
+                            return cb(null, false);
+                        }
                     }
-                }
-            });
-        } else {
-            res.send("User not found")
+                });
+            } else {
+                return cb("User not found");
+            }
+        } catch (error) {
+            console.log(error)
         }
-    } catch (error) {
-        console.log(error)
-    }
-});
-
-
+    })
+)
 // creating new task
 app.post("/api/tasks", async (req, res) => {
     try {
@@ -142,6 +177,7 @@ app.post("/api/tasks", async (req, res) => {
         console.log(result.data);
         res.redirect("/");
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: "Error creating task"});
     }
 });
@@ -165,6 +201,14 @@ app.get("/api/tasks/delete/:id", async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Error deleting task" });
     }
+});
+
+passport.serializeUser((user, cb) => {
+    cb(null, user);
+});
+
+passport.deserializeUser((user, cb) => {
+    cb(null, user);
 });
 
 app.listen(port, () => {

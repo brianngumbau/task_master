@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
+import passport from "passport";
+import session from "express-session";
 
 
 const app = express();
@@ -19,31 +21,24 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let tasks = [
-/*{
-    id: 1,
-    title: "Code reviews",
-    category: "Work",
-    description: "Review the latest code submissions from the development team. Ensure that the code adheres to our coding standards, is well-documented, and performs as expected.",
-    duedate: "19/6/2024",
-},
-{
-    id: 2,
-    title: "Online course progress",
-    category: "Educational",
-    description: "Track and complete the next set of modules in the 'JavaScript Algorithms and Data Structures.",
-    duedate: "21/6/2024",
-}, */
-];
 
-let lastId = 2;
+app.use(session({
+    secret: 'TOPSECRET',
+    resave: false,
+    saveUninitialized: true,
+  }));
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 
-
+let tasks = [];
 // get all tasks
-app.get("/tasks", async (req, res) => {
+app.get("/tasks/user/:userId", async (req, res) => {
+    const userId = parseInt(req.params.userId);
+    console.log(userId);
     try {
-        const result = await db.query("SELECT * FROM tasks ORDER BY id ASC");
+        const result = await db.query("SELECT * FROM tasks WHERE user_id = $1 ORDER BY id ASC", [userId]);
         const tasks = result.rows;
         console.log(tasks);
         res.json(tasks);
@@ -58,7 +53,7 @@ app.get("/tasks/:id", async (req, res) => {
     //const task = tasks.find((task) => task.id === id);
     try {
         const result = await db.query("SELECT * FROM tasks WHERE id = ($1)", [id]);
-        const task = result.rows;
+        const task = result.rows[0];
         console.log(task);
         res.json(task);
     } catch (error) {
@@ -68,9 +63,8 @@ app.get("/tasks/:id", async (req, res) => {
 
 //posting a new task
 app.post("/tasks", async (req, res) => {
-    const newId = lastId += 1;
+    const userId = req.user.id;
     const newTask = {
-        id: newId,
         title: req.body.title,
         duedate: req.body.duedate,
         description: req.body.description,
@@ -78,8 +72,8 @@ app.post("/tasks", async (req, res) => {
     };
     //tasks.push(newTask);
     try {
-        await db.query("INSERT INTO tasks (title, duedate, category, description) VALUES ($1, $2, $3, $4)", 
-            [req.body.title, req.body.duedate, req.body.category, req.body.description]);
+        await db.query("INSERT INTO tasks (title, duedate, category, description, user_id) VALUES ($1, $2, $3, $4, $5)", 
+            [req.body.title, req.body.duedate, req.body.category, req.body.description, req.user.id]);
         
             res.status(201).json(newTask);
     } catch (error) {
@@ -91,9 +85,11 @@ app.post("/tasks", async (req, res) => {
 //patching a task
 
 app.patch("/tasks/:id", async (req, res) => {
-    const id = parseInt(req.params.id);
+    const taskId = parseInt(req.params.id);
+    const userId = req.user.id;
+    console.log(userId);
     try {
-        const result = await db.query("SELECT * FROM tasks WHERE id = ($1)", [id]);
+        const result = await db.query("SELECT * FROM tasks WHERE id = ($1) AND user_id = ($2)", [taskId, userId]);
         const existingTask = result.rows[0];
         console.log(result.rows);
 
@@ -101,7 +97,7 @@ app.patch("/tasks/:id", async (req, res) => {
             return res.status(404).json({ error: "Task not found" });
         }
         const updatedTask = {
-            id: id,
+            id: taskId,
             title: req.body.title || existingTask.title,
             duedate: req.body.duedate || existingTask.duedate,
             description: req.body.description || existingTask.description,
@@ -110,8 +106,8 @@ app.patch("/tasks/:id", async (req, res) => {
         //const searchId = tasks.findIndex((task) => task.id === id);
         //tasks[searchId] = updatedTask;
         await db.query(
-            "UPDATE tasks SET title = ($1), duedate = ($2), description = ($3), category = ($4) WHERE id = ($5)", 
-            [updatedTask.title, updatedTask.duedate, updatedTask.description, updatedTask.category, id]);
+            "UPDATE tasks SET title = ($1), duedate = ($2), description = ($3), category = ($4) WHERE id = ($5) AND user_id = ($6)", 
+            [updatedTask.title, updatedTask.duedate, updatedTask.description, updatedTask.category,  taskId, userId]);
             res.json(updatedTask);
 
     } catch (error) {
@@ -122,9 +118,10 @@ app.patch("/tasks/:id", async (req, res) => {
 //deleting specific task using task id
 
 app.delete("/tasks/:id", async (req, res) => {
-    const id = parseInt(req.params.id);
+    const taskId = parseInt(req.params.id);
+    const userId = req.user.id;
     try {
-        await db.query("DELETE FROM tasks WHERE id = ($1)", [id]);
+        await db.query("DELETE FROM tasks WHERE id = ($1) AND user_id = $2", [taskId, userId]);
         res.sendStatus(200)
     } catch (error) {
         console.log(error);
