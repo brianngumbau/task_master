@@ -64,17 +64,23 @@ app.get("/new", (req, res) => {
 });
 
 app.get("/edit/:id", async (req, res) => {
-    try {
-        const result = await axios.get(`${API_URL}/tasks/${req.params.id}`);
-        console.log(result.data);
-        res.render("modify.ejs", {
-            heading: "Edit Task",
-            submit: "Update Task",
-            task: result.data[0],
-        });
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching task"});
+    if (req.isAuthenticated){
+        try {
+            const userId = req.user.id;
+            const result = await axios.get(`${API_URL}/tasks/${req.params.id}/user/${userId}`);
+            console.log(result.data);
+            res.render("modify.ejs", {
+                heading: "Edit Task",
+                submit: "Update Task",
+                task: result.data,
+            });
+        } catch (error) {
+            res.status(500).json({ message: "Error fetching task"});
+        }
+    } else {
+        res.redirect("/login");
     }
+   
 });
 
 
@@ -172,34 +178,52 @@ passport.use(
 )
 // creating new task
 app.post("/api/tasks", async (req, res) => {
-    try {
-        const result = await axios.post(`${API_URL}/tasks`, req.body);
-        console.log(result.data);
-        res.redirect("/");
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Error creating task"});
+    if (req.isAuthenticated()) {
+        try {
+            const userId = req.user.id;
+            const result = await axios.post(`${API_URL}/tasks/user/${userId}`, req.body);
+            console.log(result.data);
+            res.redirect("/");
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Error creating task"});
+        }
+    } else {
+        res.redirect("/login");
     }
+  
 });
 
 // updating a task(partially)
 app.post("/api/tasks/:id", async (req, res) => {
-    try {
-        const result = await axios.patch(`${API_URL}/tasks/${req.params.id}`, req.body);
-        console.log(result.data);
-        res.redirect("/");
-    } catch (error) {
-        res.status(500).json({ message: "Error updating task"});
+    if (req.isAuthenticated()) {
+        try {
+            const userId = req.user.id;
+            const result = await axios.patch(`${API_URL}/tasks/${req.params.id}/user/${userId}`, req.body);
+            console.log(result.data);
+            res.redirect("/");
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Error updating task"});
+        }
+    } else {
+        res.redirect("/login");
     }
 });
 
 //deleting a task
 app.get("/api/tasks/delete/:id", async (req, res) => {
-    try {
-        await axios.delete(`${API_URL}/tasks/${req.params.id}`);
-        res.redirect("/");
-    } catch (error) {
-        res.status(500).json({ message: "Error deleting task" });
+    if (req.isAuthenticated()) {
+        try {
+            const userId = req.user.id;
+            await axios.delete(`${API_URL}/tasks/delete/${req.params.id}/user/${userId}`);
+            res.redirect("/");
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Error deleting task" });
+        }
+    } else {
+        res.redirect("/login");
     }
 });
 
