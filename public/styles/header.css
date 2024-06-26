@@ -1,17 +1,10 @@
-/* header.css */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
 header {
-    background-color: #4b0082;
-    color: white;
-    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color:seagreen;
+    padding: 10px 20px;
+    color: white;
 }
 
 .logo img {
@@ -19,37 +12,30 @@ header {
 }
 
 nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
     display: flex;
+    list-style-type: none;
 }
 
 nav ul li {
-    margin-right: 20px;
+    margin: 0 10px;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
+    font-weight: bold;
 }
 
 nav ul li a:hover {
     text-decoration: underline;
 }
 
-
 footer {
-    position: relative;
+    text-align:end;
+    padding: 10px;
+    color: black;
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    background: #4b0082;
-    color: white;
-    padding: 5px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    margin-top: auto;
-    margin-bottom: 0;
 }
 

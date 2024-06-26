@@ -1,65 +1,63 @@
 body {
-    font-family: Arial;
-    display: flexbox;
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    justify-content: center;
-    align-items: center;
-    height:100vh;
     margin: 0;
+    padding: 0;
 }
-.signupcontainer {
-    text-align: center;
 
+.logincontainer, .signupcontainer {
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 h1 {
-    text-align: center;
-    color: purple;
+    color: #333;
 }
 
 form {
-    padding: 50px;
-    width: 400px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-input {
+form input {
     width: 100%;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-}
-
-button {
-    width: 50%;
     padding: 10px;
-    background-color: purple;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-button:hover {
-    background-color: plum ;
+form button {
+    padding: 10px;
+    background-color:purple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color:rebeccapurple;
 }
 
 .error {
     color: red;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-/* Footer Styling */
-.footer-bottom {
-    background-color: #abcdab;
-    color:white;
-    text-align: center;
-    padding: 10px 0;
-    position:fixed;
-    border-top: 1px solid #444;
-    bottom:0;
+.signupcontainer p {
+    margin-top: 20px;
+}
+
+.signupcontainer a {
+    color:purple;
+    text-decoration: none;
+}
+
+.signupcontainer a:hover {
+    text-decoration: underline;
 }

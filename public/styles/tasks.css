@@ -1,162 +1,109 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    color: #333;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
 .container {
-    background-color: #fff;
+    width: 80%;
+    margin: 0 auto;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1500px;
-    box-sizing: border-box;
-    text-align: center;
-    margin: auto;
-}
-
-.holder {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 800px;
-    box-sizing: border-box;
-    text-align: center;
 }
 
 h1 {
-    color: #4b0082;
-    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
 }
 
 #newTask {
-    background-color: #4b0082;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
+    display: block;
+    width: 100px;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+    background-color:steelblue;
+    color: white;
     text-decoration: none;
-    display: inline-block;
+    border-radius: 5px;
 }
 
 #newTask:hover {
-    background-color: #370061;
+    background-color: rebeccapurple;
 }
 
 #tasksList {
     list-style-type: none;
     padding: 0;
-    margin: 0;
 }
 
 #tasksList li {
-    background-color: #f3f3f3;
-    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
     border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 20px;
-    text-align: left;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 #tasksList li h2 {
-    color: black;
-    margin-top: 0;
+    margin: 0 0 10px;
 }
 
 #tasksList li small {
     display: block;
-    color: #555;
+    color: #666;
 }
 
 #tasksList li p {
-    margin: 5px 0;
+    color: #333;
 }
 
-#tasksList li .edit,
-#tasksList li .delete {
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 10px;
-    text-decoration: none;
+.edit, .delete {
     display: inline-block;
-    transition: background-color 0.3s ease;
+    margin: 10px 0 0;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+    border-radius: 3px;
 }
 
-#tasksList li .edit {
-    background-color: #4b0082; /* Purple background for Edit */
+.edit {
+    background-color:darkslategrey;
 }
 
-#tasksList li .edit:hover {
-    background-color: #370061;
+.delete {
+    background-color:darkred;
 }
 
-#tasksList li .delete {
-    background-color: #ff0000; /* Red background for Delete */
-    margin-left: 10px;
+.edit:hover {
+    background-color:#ccc;
 }
 
-#tasksList li .delete:hover {
-    background-color: #cc0000;
+.delete:hover {
+    background-color:red;
 }
 
-form {
-    text-align: left;
-}
-
-form input[type="text"],
-form textarea {
+form input, form textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
+    margin: 10px 0;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box;
-}
-
-form input[type="date"],
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-form textarea {
-    resize: vertical;
 }
 
 form button.full {
-    background-color: #4b0082;
-    color: #fff;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color:seagreen;
+    color: white;
     border: none;
     border-radius: 5px;
-    padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 20px auto 0;
 }
 
 form button.full:hover {
-    background-color: #370061;
+    background-color:steelblue;
 }
