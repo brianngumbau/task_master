@@ -35,10 +35,18 @@ const db = new pg.Client({
     user: process.env.PG_USER,
     host: process.env.PG_HOST,
     database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
+    password: process.env.PGPASSWORD,
     port: process.env.PG_PORT,
 });
-db.connect();
+//db.connect();
+
+db.connect((err) => {
+    if (err) {
+        console.error("Connection error", err.stack);
+    } else {
+        console.log("Connected to the database");
+    }
+});
 
 //main page
 app.get("/", async (req, res) => {
