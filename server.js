@@ -16,7 +16,7 @@ env.config();
 
 app.use(
     session({
-        secret: "TOPSECRET",
+        secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
     })
@@ -32,11 +32,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "taskmaster",
-    password: "918190",
-    port: 5432
+    user: process.env.PG_USER,
+    host: process.env.PG_HOST,
+    database: process.env.PG_DATABASE,
+    password: process.env.PG_PASSWORD,
+    port: process.env.PG_PORT,
 });
 db.connect();
 
