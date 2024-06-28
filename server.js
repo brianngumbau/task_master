@@ -31,6 +31,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+/*
 const db = new pg.Client({
     user: process.env.PG_USER,
     host: process.env.PG_HOST,
@@ -38,7 +39,15 @@ const db = new pg.Client({
     password: process.env.PGPASSWORD,
     port: process.env.PG_PORT,
 });
-//db.connect();
+db.connect(); 
+*/
+
+const db = new pg.Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
 db.connect((err) => {
     if (err) {
