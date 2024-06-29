@@ -6,32 +6,26 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.holder {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 3%;
+    border-radius: 10px;
+}
+
 h1 {
     text-align: center;
     color: #333;
-}
-
-#newTask {
-    display: block;
-    width: 100px;
-    margin: 20px auto;
-    padding: 10px;
-    text-align: center;
-    background-color:steelblue;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-#newTask:hover {
-    background-color: rebeccapurple;
 }
 
 #tasksList {
@@ -70,7 +64,7 @@ h1 {
 }
 
 .edit {
-    background-color:darkslategrey;
+    background-color: purple;
 }
 
 .delete {
@@ -78,7 +72,7 @@ h1 {
 }
 
 .edit:hover {
-    background-color:#ccc;
+    background-color:#BF40BF;
 }
 
 .delete:hover {
@@ -86,7 +80,7 @@ h1 {
 }
 
 form input, form textarea {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -95,15 +89,16 @@ form input, form textarea {
 
 form button.full {
     display: block;
-    width: 100%;
+    width: 25%;
     padding: 10px;
-    background-color:seagreen;
+    background-color:purple;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
+    margin: 3% auto 0;
 }
 
 form button.full:hover {
-    background-color:steelblue;
+    background-color:#BF40BF;
 }

@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="/styles/tasks.css">
 </head>
 <body>
+    <%- include("partials/header.ejs") %>
     <div class="container">
-        <%- include("partials/header.ejs") %>
         <h1>My Tasks</h1>
-        <a id="newTask" href="/new">New Task</a>
         <ul id="tasksList">
             <% tasks.forEach(task => { %>
                 <li>
