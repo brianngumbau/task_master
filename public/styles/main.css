@@ -6,12 +6,14 @@ body {
 }
 
 .logincontainer, .signupcontainer {
-    width: 80%;
+    width: 70%;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    border-radius: 10px;
+
 }
 
 h1 {
@@ -24,7 +26,7 @@ form {
 }
 
 form input {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -33,15 +35,17 @@ form input {
 
 form button {
     padding: 10px;
-    background-color:seagreen;
+    background-color:purple;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
+    width: 25%;
+    margin: 2% auto 0;
 }
 
 form button:hover {
-    background-color:rebeccapurple;
+    background-color:#BF40BF;
 }
 
 .error {
