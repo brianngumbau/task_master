@@ -120,7 +120,7 @@ app.get("/logout", (req, res) => {
 
 // Importing routes from index.js
 import indexRoutes from "./index.js";
-app.use(indexRoutes);
+app.use("/",indexRoutes);
 
 // Starting server
 app.listen(port, () => {
