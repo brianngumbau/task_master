@@ -5,9 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npm-run-all --parallel start:*",
-    "start:index": "node index.js",
-    "start:server": "node server.js",
+    "start": "concurrently \"node index.js\" \"node server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
