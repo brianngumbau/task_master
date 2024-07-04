@@ -17,6 +17,7 @@
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
@@ -26,7 +27,6 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.12.0",
-    "postgres": "^3.4.4",
-     "npm-run-all": "^4.1.5"
+    "postgres": "^3.4.4"
   }
 }
