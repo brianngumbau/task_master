@@ -9,7 +9,8 @@ import session from "express-session";
 import { Strategy } from "passport-local";
 
 const app = express();
-const port = 3000;
+//const port = 3000;
+const port = process.env.PORT || 3000;
 const API_URL = "http://localhost:4000";
 const saltRounds = 10;
 env.config();
