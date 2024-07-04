@@ -256,9 +256,9 @@ passport.deserializeUser((user, cb) => {
     cb(null, user);
 });
 
-app.listen(port, () => {
+/*app.listen(port, () => {
     console.log(`Backend is running at http://localhost:${port}`);
-});
+});*/
 
 
 
