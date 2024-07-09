@@ -1,3 +1,4 @@
+//Importing necessary libraries and packages
 import express from "express";
 import bodyParser from "body-parser";
 import session from "express-session";
@@ -8,7 +9,7 @@ import env from "dotenv";
 import axios from "axios";
 import { Strategy } from "passport-local";
 
-
+//Initializing Express application
 const app = express();
 const port = process.env.PORT || 3000; 
 const API_URL = process.env.API_URL;
@@ -50,8 +51,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//User authentication
-// Passport configuration
+//Passport configuration for user authentication
 passport.use(
     new Strategy(async function verify(username, password, cb) {
         try {
@@ -96,12 +96,12 @@ passport.deserializeUser(async (id, cb) => {
 });
 
 
-//login page
+//Route for rendering login page
 app.get("/login", (req, res) => {
     res.render("login.ejs");
 });
 
-//logout logic
+//Route for logging out the user
 app.get("/logout", (req, res) => {
     req.logout(function (error) {
         if (error) {
@@ -111,19 +111,19 @@ app.get("/logout", (req, res) => {
     });
 });
 
-//register(signup) page
+//Route for rendering  the registration(signup) page
 app.get("/register", (req, res) => {
     res.render("signup.ejs");
 });
 
-//login authentication
+//Route for handling login authentication
 app.post("/login", 
     passport.authenticate("local", {
         successRedirect: "/",
         failureRedirect: "/login",
 }));
 
-//signup logic
+//Route for handling user registration
 app.post("/register", async (req, res) => {
     const email = req.body.username;
     const password = req.body.password;
@@ -162,9 +162,7 @@ app.post("/register", async (req, res) => {
 
 });
 
-//Task management routes
-//backend server routes
-//main page route(user task list)
+//Route for rendering the main page (user task list)
 app.get("/", async (req, res) => {
     if (req.isAuthenticated()) {
         try {
@@ -182,12 +180,12 @@ app.get("/", async (req, res) => {
     }
 });
 
-//new task page
+//Route for rendering the new task page
 app.get("/new", (req, res) => {
     res.render("modify.ejs", { heading: "New Task", submit: "Create New Task" });
 });
 
-//edit task page
+//Route for rendering the task editing page
 app.get("/edit/:id", async (req, res) => {
     if (req.isAuthenticated()) {
         try {
@@ -207,7 +205,7 @@ app.get("/edit/:id", async (req, res) => {
     }
 });
 
-//posting new task
+//Route for handling new task creation
 app.post("/api/tasks", async (req, res) => {
     if (req.isAuthenticated()) {
         try {
@@ -224,7 +222,7 @@ app.post("/api/tasks", async (req, res) => {
     }
 });
 
-//updating a taskpartially
+//Route for handling task updates
 app.post("/api/tasks/:id", async (req, res) => {
     if (req.isAuthenticated()) {
         try {
@@ -241,7 +239,7 @@ app.post("/api/tasks/:id", async (req, res) => {
     }
 });
 
-//deleting a task 
+//Route for handling task deletion 
 app.get("/api/tasks/delete/:id", async (req, res) => {
     if (req.isAuthenticated()) {
         try {
@@ -272,7 +270,7 @@ app.get("/tasks/user/:userId", async (req, res) => {
     }
 });
 
-//getting specific user task by id 
+//retrieving specific user task by id 
 app.get("/tasks/:id/user/:userId", async (req, res) => {
     const id = parseInt(req.params.id);
     const userId = parseInt(req.params.userId);
@@ -286,7 +284,7 @@ app.get("/tasks/:id/user/:userId", async (req, res) => {
     }
 });
 
-//creating new user task into the databse 
+//creating  a new user task in the databse 
 app.post("/tasks/user/:userId", async (req, res) => {
     const userId = parseInt(req.params.userId);
     const newTask = {
@@ -334,7 +332,7 @@ app.patch("/tasks/:id/user/:userId", async (req, res) => {
     }
 });
 
-//deleting user task in the databse
+//deleting user task from the databse
 app.delete("/tasks/delete/:id/user/:userId", async (req, res) => {
     const id = parseInt(req.params.id);
     const userId = parseInt(req.params.userId);
@@ -345,7 +343,7 @@ app.delete("/tasks/delete/:id/user/:userId", async (req, res) => {
         console.log(error);
     }
 });
-// Starting server
+// Starting the express server
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
