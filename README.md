@@ -55,7 +55,6 @@ Open a pull request.
 Licensing
 This project is licensed under the MIT License
 
-Screenshot
 
 
 
