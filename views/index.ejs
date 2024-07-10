@@ -9,9 +9,9 @@
 <body>
     <!--Include header file-->
     <%- include("partials/header.ejs") %>
+    <% if (tasks.length > 0) { %>
     <div class="container">
         <h1>My Tasks</h1>
-        <% if (tasks.length > 0) { %>
         <ul id="tasksList">
             <% tasks.forEach(task => { %>
                 <li>
@@ -25,9 +25,9 @@
                 </li>
            <% }); %>
         </ul>
-        <% } else { %>
-    <p>No tasks found. Create a new task to get started!</p>
-        <%}%>
     </div>
+    <% } else { %>
+        <p>No tasks found. Create a new task to get started!</p>
+        <%}%>
 </body>
 </html>
