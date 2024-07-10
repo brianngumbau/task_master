@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="/styles/tasks.css">
 </head>
 <body>
+    <!--Include header file-->
     <%- include("partials/header.ejs") %>
     <div class="container">
         <h1>My Tasks</h1>
+        <% if (tasks.length > 0) { %>
         <ul id="tasksList">
             <% tasks.forEach(task => { %>
                 <li>
@@ -17,11 +19,15 @@
                     <small> Category: <%=task.category%></small>
                     <small> Duedate: <%= task.duedate%> </small>
                     <p><%=task.description%></p>
+                    <!--Edit and Delete Buttons-->
                     <a class="edit" href="/edit/<%= task.id %>">Edit</a>
                     <a class="delete" href="/api/tasks/delete/<%= task.id%>">Delete</a>
                 </li>
            <% }); %>
         </ul>
+        <% } else { %>
+    <p>No tasks found. Create a new task to get started!</p>
+        <%}%>
     </div>
 </body>
 </html>

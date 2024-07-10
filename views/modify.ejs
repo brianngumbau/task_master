@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="/styles/tasks.css">
 </head>
 <body>
+    <!--Include header file-->
     <%- include("partials/header.ejs") %>
     <div class="holder">
         <h1>
             <%= heading %>
         </h1>
         <% if (locals.task) { %>
+            <!--form for editing a task-->
             <form id="editTaskForm" method="post" action="/api/tasks/<%=task.id%>">
                 <input type="text" name="title" value="<%=task.title %>">
                 <input type="text" name="category" value="<%=task.category %>">
@@ -23,6 +25,7 @@
                 </button>
             </form>
         <%} else { %>
+            <!--form for creating new task-->
             <form id="newTaskForm" method="post" action="/api/tasks">
                 <input type="text" name="title" placeholder="Title" required>
                 <input type="text" name="category" placeholder="Category">
