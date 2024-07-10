@@ -4,11 +4,6 @@ body {
     margin: 0;
     padding: 0;
 }
-body .p {
-    font-size: 2rem;
-    text-align: center;
-    font-family: 'Times New Roman', Times, serif;
-}
 
 .container {
     width: 90%;
@@ -106,4 +101,11 @@ form button.full {
 
 form button.full:hover {
     background-color:#BF40BF;
+}
+
+.no-tasks {
+    text-align: center;
+    margin-top: 80px; 
+    color: #666;
+    font-size: 1.2em;
 }
